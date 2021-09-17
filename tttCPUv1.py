@@ -1,7 +1,7 @@
 '''
 Matt Myers
 09/16/2021
-Tic Tac Toe
+Tic Tac Toe CPU
 '''
 import pygame as pg
 import numpy as np

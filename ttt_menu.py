@@ -4,17 +4,17 @@ Matt Myers
 Tic Tac Toe Options Menu
 '''
 import PySimpleGUI as sg
-from ttt import ttt
+from ttt import main as ttt1v1
 
 #Theme
 sg.theme('Dark Teal 2')
 
 # Window
-font=('helvetica', 12, 'bold',)
-layout = [[sg.Text("\nChoose your Game Mode",font=font)],
-          [sg.Button('1 V 1')], 
-          [sg.Button('1 V CPU')],
-          [sg.Button('Quit')]]
+font=('helvetica', 12, 'bold','underline')
+layout = [[sg.Text("\nChoose your Game Mode\n\n",font=font)],
+          [sg.Button('1 V 1', auto_size_button=False)], 
+          [sg.Button('1 V CPU', auto_size_button=False)],
+          [sg.Button('Quit', auto_size_button=False)]]
 
 # *Window.Create
 window = sg.Window('Tic Tac Toe Menu', layout, size=(300,200), element_justification='c')
@@ -25,7 +25,11 @@ while True:
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
     if event == '1 V 1':
-        pass
+        window.close()
+        ttt1v1()
+    if event == '1 V CPU':
+        window.close()
+        sg.popup('Coming Soon')
 
 
 # *Window.Close
