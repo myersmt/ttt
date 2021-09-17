@@ -4,6 +4,7 @@ Matt Myers
 Tic Tac Toe Functions
 '''
 import pygame as pg
+import numpy as np
 
 def draw_lines(S, LC,LW):
     pg.draw.rect(S, LC, pg.Rect(192,0,LW,600),8,LW)
@@ -84,6 +85,3 @@ def down_diag_win(s, player, cc, xc, h):
         c = xc
     
     pg.draw.line( s, c, (15,15), (h-15,h-15), 15)
-
-def restart():
-    pass

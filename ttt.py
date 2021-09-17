@@ -43,8 +43,16 @@ def draw_symbols():
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+200-X_SPACE), (col*200+200-X_SPACE,row*200+X_SPACE), X_WIDTH)
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+X_SPACE), (col*200+200-X_SPACE,row*200+200-X_SPACE), X_WIDTH)
 
-player = 1
+player =1
 game_won = False
+
+def restart():
+    global player, board, game_won
+    screen.fill( BG_COLOR )
+    game_won = False
+    tf.draw_lines(screen, LINE_COLOR, LINE_WIDTH) 
+    player = 1
+    board = np.zeros((3,3))
 
 # Mainloop
 while True:
@@ -73,5 +81,9 @@ while True:
                     
                 draw_symbols()
                 
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_SPACE:
+                restart()
     pg.display.update()
+
 
