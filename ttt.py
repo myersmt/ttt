@@ -68,16 +68,10 @@ while True:
             ccol = int(mx // 200)
             
             if tf.available_spot( board, crow, ccol ):
-                if player == 1:
-                    tf.mark_square( board, crow, ccol, player )
-                    if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
-                        game_won = True
-                    player = 2
-                elif player == 2:
-                    tf.mark_square( board, crow, ccol, player )
-                    if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
-                        game_won = True
-                    player = 1
+                tf.mark_square( board, crow, ccol, player )
+                if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
+                    game_win = True
+                player = player % 2 + 1
                     
                 draw_symbols()
                 
@@ -85,5 +79,3 @@ while True:
             if event.key == pg.K_SPACE:
                 restart()
     pg.display.update()
-
-
