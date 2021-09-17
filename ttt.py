@@ -43,31 +43,35 @@ def draw_symbols():
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+200-X_SPACE), (col*200+200-X_SPACE,row*200+X_SPACE), X_WIDTH)
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+X_SPACE), (col*200+200-X_SPACE,row*200+200-X_SPACE), X_WIDTH)
 
-# Mainloop
-def main():
-    player = 1
-    while True:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-                sys.exit()
-            if event.type ==pg.MOUSEBUTTONDOWN:
-                mx = event.pos[0]
-                my = event.pos[1]
-                
-                crow = int(my // 200)
-                ccol = int(mx // 200)
-                
-                if tf.available_spot( board, crow, ccol ):
-                    if player == 1:
-                        tf.mark_square( board, crow, ccol, player )
-                        player = 2
-                    elif player == 2:
-                        tf.mark_square( board, crow, ccol, player )
-                        player = 1
-                        
-                    draw_symbols()
-                    
-        pg.display.update()
+player = 1
+game_won = False
 
-main()
+# Mainloop
+while True:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
+        if event.type ==pg.MOUSEBUTTONDOWN and not game_won:
+            mx = event.pos[0]
+            my = event.pos[1]
+            
+            crow = int(my // 200)
+            ccol = int(mx // 200)
+            
+            if tf.available_spot( board, crow, ccol ):
+                if player == 1:
+                    tf.mark_square( board, crow, ccol, player )
+                    if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
+                        game_won = True
+                    player = 2
+                elif player == 2:
+                    tf.mark_square( board, crow, ccol, player )
+                    if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
+                        game_won = True
+                    player = 1
+                    
+                draw_symbols()
+                
+    pg.display.update()
+
