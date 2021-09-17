@@ -43,39 +43,44 @@ def draw_symbols():
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+200-X_SPACE), (col*200+200-X_SPACE,row*200+X_SPACE), X_WIDTH)
                 pg.draw.line( screen, X_COLOR, (col *200+X_SPACE,row*200+X_SPACE), (col*200+200-X_SPACE,row*200+200-X_SPACE), X_WIDTH)
 
-player =1
-game_won = False
-
 def restart():
-    global player, board, game_won
     screen.fill( BG_COLOR )
-    game_won = False
-    tf.draw_lines(screen, LINE_COLOR, LINE_WIDTH) 
-    player = 1
-    board = np.zeros((3,3))
+    tf.draw_lines(screen, LINE_COLOR, LINE_WIDTH)
+    for row in range(3):
+        for col in range(3):
+            board[row][col]=0
 
 # Mainloop
-while True:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            pg.quit()
-            sys.exit()
-        if event.type ==pg.MOUSEBUTTONDOWN and not game_won:
-            mx = event.pos[0]
-            my = event.pos[1]
-            
-            crow = int(my // 200)
-            ccol = int(mx // 200)
-            
-            if tf.available_spot( board, crow, ccol ):
-                tf.mark_square( board, crow, ccol, player )
-                if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
-                    game_win = True
-                player = player % 2 + 1
-                    
-                draw_symbols()
+def ttt():
+    player =1
+    game_won = False
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+            if event.type ==pg.MOUSEBUTTONDOWN and not game_won:
+                mx = event.pos[0]
+                my = event.pos[1]
                 
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_SPACE:
-                restart()
-    pg.display.update()
+                crow = int(my // 200)
+                ccol = int(mx // 200)
+                
+                if tf.available_spot( board, crow, ccol ):
+                    tf.mark_square( board, crow, ccol, player )
+                    if tf.results(screen, board,player, CIRCLE_COLOR, X_COLOR, HEIGHT):
+                        game_won = True
+                    player = player % 2 + 1
+                        
+                    draw_symbols()
+                    
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_SPACE:
+                    restart()
+                    player = 1
+                    game_won = False
+                    
+        pg.display.update()
+
+
+ttt()
