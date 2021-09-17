@@ -5,10 +5,10 @@ Tic Tac Toe CPU
 '''
 import pygame as pg
 import numpy as np
-import sys
+import sys, random
 import ttt_fun as tf
 
-def main():
+def mainCPU():
     #Initializing pygame
     pg.init()
 
@@ -86,4 +86,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    mainCPU()

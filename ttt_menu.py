@@ -17,7 +17,9 @@ layout = [[sg.Text("\nChoose your Game Mode\n\n",font=font)],
           [sg.Button('Quit', auto_size_button=False)]]
 
 # *Window.Create
-window = sg.Window('Tic Tac Toe Menu', layout, size=(300,200), element_justification='c')
+window = sg.Window('Tic Tac Toe Menu', layout, size=(300,200), 
+                   element_justification='c', no_titlebar=True,
+                   grab_anywhere=True)
 
 # *Window.Display
 while True:
@@ -28,8 +30,8 @@ while True:
         window.close()
         ttt1v1()
     if event == '1 V CPU':
-        window.close()
-        sg.popup('Coming Soon')
+        sg.popup('Coming Soon', title='Coming Soon!', auto_close=True, 
+                 no_titlebar=True, grab_anywhere=True)
 
 
 # *Window.Close
